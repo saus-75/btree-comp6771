@@ -26,170 +26,191 @@
 template <typename T> 
 class btree {
 	public:
-	/** Hmm, need some iterator typedefs here... friends? **/
+		/** Hmm, need some iterator typedefs here... friends? **/
 
-	/**
-	 * Constructs an empty btree.  Note that
-	 * the elements stored in your btree must
-	 * have a well-defined zero-arg constructor,
-	 * copy constructor, operator=, and destructor.
-	 * The elements must also know how to order themselves
-	 * relative to each other by implementing operator<
-	 * and operator==. (These are already implemented on
-	 * behalf of all built-ins: ints, doubles, strings, etc.)
-	 * 
-	 * @param maxNodeElems the maximum number of elements
-	 *        that can be stored in each B-Tree node
-	 */
-	btree(size_t maxNodeElems = 40);
+		/**
+		 * Constructs an empty btree.  Note that
+		 * the elements stored in your btree must
+		 * have a well-defined zero-arg constructor,
+		 * copy constructor, operator=, and destructor.
+		 * The elements must also know how to order themselves
+		 * relative to each other by implementing operator<
+		 * and operator==. (These are already implemented on
+		 * behalf of all built-ins: ints, doubles, strings, etc.)
+		 * 
+		 * @param maxNodeElems the maximum number of elements
+		 *        that can be stored in each B-Tree node
+		 */
+		btree(size_t maxNodeElems = 3);
 
-	/**
-	 * The copy constructor and  assignment operator.
-	 * They allow us to pass around B-Trees by value.
-	 * Although these operations are likely to be expensive
-	 * they make for an interesting programming exercise.
-	 * Implement these operations using value semantics and 
-	 * make sure they do not leak memory.
-	 */
+		/**
+		 * The copy constructor and  assignment operator.
+		 * They allow us to pass around B-Trees by value.
+		 * Although these operations are likely to be expensive
+		 * they make for an interesting programming exercise.
+		 * Implement these operations using value semantics and 
+		 * make sure they do not leak memory.
+		 */
 
-	/** 
-	 * Copy constructor
-	 * Creates a new B-Tree as a copy of original.
-	 *
-	 * @param original a const lvalue reference to a B-Tree object
-	 */
-	btree(const btree<T>& original);
+		/** 
+		 * Copy constructor
+		 * Creates a new B-Tree as a copy of original.
+		 *
+		 * @param original a const lvalue reference to a B-Tree object
+		 */
+		// btree(const btree<T>& original);
 
-	/** 
-	 * Move constructor
-	 * Creates a new B-Tree by "stealing" from original.
-	 *
-	 * @param original an rvalue reference to a B-Tree object
-	 */
-	btree(btree<T>&& original);
+		/** 
+		 * Move constructor
+		 * Creates a new B-Tree by "stealing" from original.
+		 *
+		 * @param original an rvalue reference to a B-Tree object
+		 */
+		// btree(btree<T>&& original);
 
 
-	/** 
-	 * Copy assignment
-	 * Replaces the contents of this object with a copy of rhs.
-	 *
-	 * @param rhs a const lvalue reference to a B-Tree object
-	 */
-	btree<T>& operator=(const btree<T>& rhs);
+		/** 
+		 * Copy assignment
+		 * Replaces the contents of this object with a copy of rhs.
+		 *
+		 * @param rhs a const lvalue reference to a B-Tree object
+		 */
+		// btree<T>& operator=(const btree<T>& rhs);
 
-	/** 
-	 * Move assignment
-	 * Replaces the contents of this object with the "stolen"
-	 * contents of original.
-	 *
-	 * @param rhs a const reference to a B-Tree object
-	 */
-	btree<T>& operator=(btree<T>&& rhs);
+		/** 
+		 * Move assignment
+		 * Replaces the contents of this object with the "stolen"
+		 * contents of original.
+		 *
+		 * @param rhs a const reference to a B-Tree object
+		 */
+		// btree<T>& operator=(btree<T>&& rhs);
 
-	/**
-	 * Puts a breadth-first traversal of the B-Tree onto the output
-	 * stream os. Elements must, in turn, support the output operator.
-	 * Elements are separated by space. Should not output any newlines.
-	 *
-	 * @param os a reference to a C++ output stream
-	 * @param tree a const reference to a B-Tree object
-	 * @return a reference to os
-	 */
-	friend std::ostream& operator<< <T> (std::ostream& os, const btree<T>& tree);
+		/**
+		 * Puts a breadth-first traversal of the B-Tree onto the output
+		 * stream os. Elements must, in turn, support the output operator.
+		 * Elements are separated by space. Should not output any newlines.
+		 *
+		 * @param os a reference to a C++ output stream
+		 * @param tree a const reference to a B-Tree object
+		 * @return a reference to os
+		 */
+		// friend std::ostream& operator<< <T> (std::ostream& os, const btree<T>& tree);
 
-	/**
-	 * The following can go here
-	 * -- begin() 
-	 * -- end() 
-	 * -- rbegin() 
-	 * -- rend() 
-	 * -- cbegin() 
-	 * -- cend() 
-	 * -- crbegin() 
-	 * -- crend() 
-	 */
+		/**
+		 * The following can go here
+		 * -- begin() 
+		 * -- end() 
+		 * -- rbegin() 
+		 * -- rend() 
+		 * -- cbegin() 
+		 * -- cend() 
+		 * -- crbegin() 
+		 * -- crend() 
+		 */
 
-	/**
-	  * Returns an iterator to the matching element, or whatever 
-	  * the non-const end() returns if the element could 
-	  * not be found.  
-	  *
-	  * @param elem the client element we are trying to match.  The elem,
-	  *        if an instance of a true class, relies on the operator< and
-	  *        and operator== methods to compare elem to elements already 
-	  *        in the btree.  You must ensure that your class implements
-	  *        these things, else code making use of btree<T>::find will
-	  *        not compile.
-	  * @return an iterator to the matching element, or whatever the
-	  *         non-const end() returns if no such match was ever found.
-	  */
-	iterator find(const T& elem);
-	  
-	/**
-	  * Identical in functionality to the non-const version of find, 
-	  * save the fact that what's pointed to by the returned iterator
-	  * is deemed as const and immutable.
-	  *
-	  * @param elem the client element we are trying to match.
-	  * @return an iterator to the matching element, or whatever the
-	  *         const end() returns if no such match was ever found.
-	  */
-	const_iterator find(const T& elem) const;
-	    
-	/**
-	  * Operation which inserts the specified element
-	  * into the btree if a matching element isn't already
-	  * present.  In the event where the element truly needs
-	  * to be inserted, the size of the btree is effectively
-	  * increases by one, and the pair that gets returned contains
-	  * an iterator to the inserted element and true in its first and
-	  * second fields.  
-	  *
-	  * If a matching element already exists in the btree, nothing
-	  * is added at all, and the size of the btree stays the same.  The 
-	  * returned pair still returns an iterator to the matching element, but
-	  * the second field of the returned pair will store false.  This
-	  * second value can be checked to after an insertion to decide whether
-	  * or not the btree got bigger.
-	  *
-	  * The insert method makes use of T's zero-arg constructor and 
-	  * operator= method, and if these things aren't available, 
-	  * then the call to btree<T>::insert will not compile.  The implementation
-	  * also makes use of the class's operator== and operator< as well.
-	  *
-	  * @param elem the element to be inserted.
-	  * @return a pair whose first field is an iterator positioned at
-	  *         the matching element in the btree, and whose second field 
-	  *         stores true if and only if the element needed to be added 
-	  *         because no matching element was there prior to the insert call.
-	  */
-	std::pair<iterator, bool> insert(const T& elem);
+		/**
+		  * Returns an iterator to the matching element, or whatever 
+		  * the non-const end() returns if the element could 
+		  * not be found.  
+		  *
+		  * @param elem the client element we are trying to match.  The elem,
+		  *        if an instance of a true class, relies on the operator< and
+		  *        and operator== methods to compare elem to elements already 
+		  *        in the btree.  You must ensure that your class implements
+		  *        these things, else code making use of btree<T>::find will
+		  *        not compile.
+		  * @return an iterator to the matching element, or whatever the
+		  *         non-const end() returns if no such match was ever found.
+		  */
+		// iterator find(const T& elem);
+		  
+		/**
+		  * Identical in functionality to the non-const version of find, 
+		  * save the fact that what's pointed to by the returned iterator
+		  * is deemed as const and immutable.
+		  *
+		  * @param elem the client element we are trying to match.
+		  * @return an iterator to the matching element, or whatever the
+		  *         const end() returns if no such match was ever found.
+		  */
+		// const_iterator find(const T& elem) const;
+		    
+		/**
+		  * Operation which inserts the specified element
+		  * into the btree if a matching element isn't already
+		  * present.  In the event where the element truly needs
+		  * to be inserted, the size of the btree is effectively
+		  * increases by one, and the pair that gets returned contains
+		  * an iterator to the inserted element and true in its first and
+		  * second fields.  
+		  *
+		  * If a matching element already exists in the btree, nothing
+		  * is added at all, and the size of the btree stays the same.  The 
+		  * returned pair still returns an iterator to the matching element, but
+		  * the second field of the returned pair will store false.  This
+		  * second value can be checked to after an insertion to decide whether
+		  * or not the btree got bigger.
+		  *
+		  * The insert method makes use of T's zero-arg constructor and 
+		  * operator= method, and if these things aren't available, 
+		  * then the call to btree<T>::insert will not compile.  The implementation
+		  * also makes use of the class's operator== and operator< as well.
+		  *
+		  * @param elem the element to be inserted.
+		  * @return a pair whose first field is an iterator positioned at
+		  *         the matching element in the btree, and whose second field 
+		  *         stores true if and only if the element needed to be added 
+		  *         because no matching element was there prior to the insert call.
+		  */
+		// std::pair<iterator, bool> insert(const T& elem);
+        bool insert(const T& elem);
 
-	/**
-	  * Disposes of all internal resources, which includes
-	  * the disposal of any client objects previously
-	  * inserted using the insert operation. 
-	  * Check that your implementation does not leak memory!
-	  */
-	~btree();
+        void printRoot();
+		/**
+		  * Disposes of all internal resources, which includes
+		  * the disposal of any client objects previously
+		  * inserted using the insert operation. 
+		  * Check that your implementation does not leak memory!
+		  */
+		~btree(){ std::cout << "btree destroyed!\n"; }
 
 	private:
 		struct Node{
 			//Ordered set of values
-			std::set<T> values_;
-			//each key contains a map where it has a 
-			//key for its L child and its R child
+			std::set<T> nodes_;
+			//each key contains a map where it has 
+			//a key for its L child and its R child
 			std::map<T, std::map<T, std::shared_ptr<Node>>> children_;
 			//normal initialisation
 			std::weak_ptr<Node> parent_;
-			size_t maxElem_;
+			size_t maxNode_;
 
 		public:
-			Node(const std::shared_ptr<Node> parent, const size_t maxElem);
-			~Node();
+			//constructor
+			Node(const std::shared_ptr<Node> &parent, const size_t &maxNode);
+			
+			void add_value(const T& value);
+
+			void printNode(){
+                std::cout << "| ";
+				for(auto i : nodes_){
+					std::cout<< i << " | ";
+				}
+				std::cout << "\n";
+			}
+
+			// const size_t getSize() const { return nodes_.size(); }
+			// const size_t getMaxElem() const {return maxElem_;}
+
+			//destructor
+			~Node(){ std::cout << "Node destroyed!\n"; };
 		};
-	std::shared_ptr<Node> root_;
-	size_t maxElem_;
+
+		std::shared_ptr<Node> root_;
+		size_t maxElem_;
 };
+
+#include "btree.cpp"
 
 #endif
