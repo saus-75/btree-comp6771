@@ -41,7 +41,7 @@ class btree {
 		 * @param maxNodeElems the maximum number of elements
 		 *        that can be stored in each B-Tree node
 		 */
-		btree(size_t maxNodeElems = 3);
+		btree(size_t maxNodeElems = 4);
 
 		/**
 		 * The copy constructor and  assignment operator.
