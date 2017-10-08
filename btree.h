@@ -13,6 +13,7 @@
 #include <iostream>
 #include <cstddef>
 #include <utility>
+#include <algorithm>
 #include <memory>
 #include <map>
 #include <set>
@@ -41,7 +42,7 @@ class btree {
 		 * @param maxNodeElems the maximum number of elements
 		 *        that can be stored in each B-Tree node
 		 */
-		btree(size_t maxNodeElems = 4);
+		btree(size_t maxNodeElems = 3);
 
 		/**
 		 * The copy constructor and  assignment operator.
@@ -164,9 +165,12 @@ class btree {
 		  *         because no matching element was there prior to the insert call.
 		  */
 		// std::pair<iterator, bool> insert(const T& elem);
-        bool insert(const T& elem);
+        void insert(const T& elem);
 
+        //REMOVE AT THE END
         void printRoot();
+        void tester();
+
 		/**
 		  * Disposes of all internal resources, which includes
 		  * the disposal of any client objects previously
@@ -190,7 +194,13 @@ class btree {
 			//constructor
 			Node(const std::shared_ptr<Node> &parent, const size_t &maxNode);
 			
-			void add_value(const T& value);
+            //Add value into node
+			bool add_value(const T& value);
+
+            //check the set of node
+            //return the index of the value 
+            //else it returns -1
+            int find_value(const T& value);
 
 			void printNode(){
                 std::cout << "| ";

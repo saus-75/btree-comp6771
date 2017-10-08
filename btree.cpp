@@ -6,24 +6,32 @@ btree<T>::btree(size_t maxNodeElems): maxElem_{maxNodeElems}{
 }
 
 template <typename T>
-bool btree<T>::insert(const T& elem){
+void btree<T>::insert(const T& elem){
+    
     if (root_ == nullptr){
         root_ = std::make_shared<Node>(Node(nullptr,maxElem_));
         (*root_).add_value(elem);
     } else {
-        (*root_).add_value(elem);
+        if ((*root_).add_value(elem) == false){
+            std::cout << "TODO\n";
+        }
     }
-    return true;
 }
 
+//REMOVE WHEN DONE
 template <typename T>
 void btree<T>::printRoot(){
     (*root_).printNode();
 }
 
+template <typename T>
+void btree<T>::tester(){
+    auto i = (*root_).find_value(10);
+    std::cout << i << "\n";
+}
+
 //-------------Node struct functions-------------//
 
-// constructor
 template <typename T>
 btree<T>::Node::Node(const std::shared_ptr<Node> &parent, const size_t &maxNode):
     parent_{parent}, maxNode_{maxNode} 
@@ -31,12 +39,25 @@ btree<T>::Node::Node(const std::shared_ptr<Node> &parent, const size_t &maxNode)
     std::cout << "Node created!\n";
 }
 
-//Add value into node
 template <typename T>
-void btree<T>::Node::add_value(const T& value){
+bool btree<T>::Node::add_value(const T& value){
     if (nodes_.size() < maxNode_){
         nodes_.insert(value);
+        return true;
     } else {
-        std::cout << "TODO\n";
+        return false;
+    }
+}
+
+// template <typename T>
+// std::shared_ptr<Node> btree<T>::Node::search()
+
+template <typename T>
+int btree<T>::Node::find_value(const T& value){
+    auto find = nodes_.find(value);
+    if (find != nodes_.end()){
+        return std::distance(nodes_.begin(), find);
+    } else {
+        return -1;
     }
 }
