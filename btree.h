@@ -193,7 +193,7 @@ class btree {
 			//constructor
 			Node(const size_t &maxNode);
 			
-            //Add value into node
+            //basic insert value into set of nodes_
 			bool add_value(const T& value);
 
             //check the set of node
@@ -201,7 +201,11 @@ class btree {
             //else it returns -1
             int find_value(const T& value);
 
-			void printNode();
+            //check if parent key exist if true check if child key exist
+            bool check_key(const T& a, const T& b);
+
+			//Print out the set of Nodes
+            void printNode();
 
 			// const size_t getSize() const { return nodes_.size(); }
 			// const size_t getMaxElem() const {return maxElem_;}
@@ -210,8 +214,8 @@ class btree {
 			~Node(){ std::cout << "Node destroyed!\n"; };
 		};
 
-		std::shared_ptr<Node> root_;
-		size_t maxElem_;
+        std::shared_ptr<Node> root_;
+        size_t maxElem_;
 };
 
 #include "btree.cpp"

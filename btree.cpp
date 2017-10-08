@@ -8,10 +8,9 @@ btree<T>::btree(size_t maxNodeElems): maxElem_{maxNodeElems}{
 //Need to change to the correct type
 template <typename T>
 void btree<T>::insert(const T& elem){
-    
     if (root_ == nullptr){
         root_ = std::make_shared<Node>(Node(maxElem_));
-        (*root_).add_value(elem);
+        root_->add_value(elem);
     } else {
         if ((*root_).add_value(elem) == false){
             std::cout << "TODO\n";
@@ -22,13 +21,11 @@ void btree<T>::insert(const T& elem){
 //REMOVE WHEN DONE
 template <typename T>
 void btree<T>::printRoot(){
-    (*root_).printNode();
+    root_->printNode();
 }
 
 template <typename T>
 void btree<T>::tester(){
-    auto i = (*root_).find_value(10);
-    std::cout << i << "\n";
 }
 
 //-------------Node struct functions-------------//
@@ -43,8 +40,34 @@ btree<T>::Node::Node(const size_t &maxNode):
 template <typename T>
 bool btree<T>::Node::add_value(const T& value){
     if (nodes_.size() < maxNode_){
-        nodes_.insert(value);
+        if (find_value(value) == -1){
+            std::cout << "value inserted!\n";
+            nodes_.insert(value);
+        } else {
+            std::cout << "Value exist!\n";
+        }
         return true;
+    } else {
+        for (auto i : nodes_){
+            std::cout << "checking key!\n";
+            if (check_key(i, i) != true){
+            } else {
+                std::cout << "key exist in: " << i << "\n";
+            }
+        }
+
+    }
+    return true;
+}
+
+template <typename T>
+bool btree<T>::Node::check_key(const T& a, const T& b){
+    if (children_.find(a) != children_.end()){
+        if(children_[a].find(b) != children_[a].end()){
+            return true;
+        } else {
+            return false;
+        }
     } else {
         return false;
     }
@@ -63,7 +86,6 @@ int btree<T>::Node::find_value(const T& value){
     }
 }
 
-//Print out the set of Nodes.
 template <typename T>
 void btree<T>::Node::printNode(){
     std::cout << "| ";
