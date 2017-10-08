@@ -187,12 +187,11 @@ class btree {
 			//a key for its L child and its R child
 			std::map<T, std::map<T, std::shared_ptr<Node>>> children_;
 			//normal initialisation
-			std::weak_ptr<Node> parent_;
 			size_t maxNode_;
 
 		public:
 			//constructor
-			Node(const std::shared_ptr<Node> &parent, const size_t &maxNode);
+			Node(const size_t &maxNode);
 			
             //Add value into node
 			bool add_value(const T& value);

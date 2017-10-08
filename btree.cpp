@@ -5,11 +5,12 @@ btree<T>::btree(size_t maxNodeElems): maxElem_{maxNodeElems}{
     std::cout << "Created default btree\n";
 }
 
+//Need to change to the correct type
 template <typename T>
 void btree<T>::insert(const T& elem){
     
     if (root_ == nullptr){
-        root_ = std::make_shared<Node>(Node(nullptr,maxElem_));
+        root_ = std::make_shared<Node>(Node(maxElem_));
         (*root_).add_value(elem);
     } else {
         if ((*root_).add_value(elem) == false){
@@ -33,8 +34,8 @@ void btree<T>::tester(){
 //-------------Node struct functions-------------//
 
 template <typename T>
-btree<T>::Node::Node(const std::shared_ptr<Node> &parent, const size_t &maxNode):
-    parent_{parent}, maxNode_{maxNode} 
+btree<T>::Node::Node(const size_t &maxNode):
+    maxNode_{maxNode} 
 {
     std::cout << "Node created!\n";
 }
