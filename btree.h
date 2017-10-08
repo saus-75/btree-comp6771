@@ -201,13 +201,7 @@ class btree {
             //else it returns -1
             int find_value(const T& value);
 
-			void printNode(){
-                std::cout << "| ";
-				for(auto i : nodes_){
-					std::cout<< i << " | ";
-				}
-				std::cout << "\n";
-			}
+			void printNode();
 
 			// const size_t getSize() const { return nodes_.size(); }
 			// const size_t getMaxElem() const {return maxElem_;}

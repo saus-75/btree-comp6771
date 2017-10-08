@@ -62,3 +62,13 @@ int btree<T>::Node::find_value(const T& value){
         return -1;
     }
 }
+
+//Print out the set of Nodes.
+template <typename T>
+void btree<T>::Node::printNode(){
+    std::cout << "| ";
+    for(auto i : nodes_){
+        std::cout<< i << " | ";
+    }
+    std::cout << "\n";
+}
